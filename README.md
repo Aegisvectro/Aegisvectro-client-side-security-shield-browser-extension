@@ -13,6 +13,8 @@
   <a href="https://chromewebstore.google.com/detail/aegisvectro-client-side-s/hcnegdhonfnijjmiidinppcigdpchdlk"><img src="https://img.shields.io/badge/Chrome%20Web%20Store-Install-blue?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Chrome Web Store" /></a>
   &nbsp;
   <a href="https://aegisvectro.com/browser-extension/client-side-security/"><img src="https://img.shields.io/badge/Extension-Homepage-7c3aed?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0xMiAyTDIgN2wxMCA1IDEwLTUtMTAtNXpNMiAxN2wxMCA1IDEwLTVNMiAxMmwxMCA1IDEwLTUiLz48L3N2Zz4=&logoColor=white" alt="Extension Homepage" /></a>
+  &nbsp;
+  <a href="https://aegisvectro.com/browser-extension/client-side-security/docs#demo"><img src="https://img.shields.io/badge/Live%20Demo-Watch-e34c26?style=for-the-badge&logo=youtube&logoColor=white" alt="Live Demo" /></a>
 </p>
 
 <p align="center">
