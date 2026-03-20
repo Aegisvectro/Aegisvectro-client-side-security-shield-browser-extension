@@ -15,3 +15,7 @@ Ignore IDE settings
 .vscode/
 .idea/
 .venv/
+
+# Ignore local deployment scripts
+deploy.bat
+fix_gitignore.bat
