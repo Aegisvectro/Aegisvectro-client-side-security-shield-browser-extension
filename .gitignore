@@ -1,0 +1,17 @@
+Ignore system files
+
+.DS_Store
+Thumbs.db
+
+Ignore old server files if they are in the same directory (optional)
+
+server.py
+requirements.txt
+pycache/
+*.pyc
+
+Ignore IDE settings
+
+.vscode/
+.idea/
+.venv/

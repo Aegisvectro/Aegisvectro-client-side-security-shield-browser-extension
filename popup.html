@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AegisVectro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="fontawesome.css">
+    <link rel="stylesheet" href="fonts/inter.css">
+</head>
+
+<body data-theme="light">
+
+    <!-- Header -->
+    <div class="header">
+        <div class="brand" id="brand-logo" title="Visit Official Website">
+            <i class="fas fa-shield-halved" style="color:var(--accent);"></i>
+            <span data-i18n="brand">AegisVectro</span>
+        </div>
+        <div class="controls">
+            <!-- Nav Icons -->
+            <i class="fas fa-home icon-btn active-nav" data-view="home" data-i18n-title="rescan" title="Scan"></i>
+            <i class="fas fa-comments icon-btn" data-view="chat" data-i18n-title="chatHead" title="Ask Aegis"></i>
+            <i class="fas fa-eye icon-btn" data-view="vision" data-i18n-title="visionTitle" title="Visual Guard"></i>
+            <i class="fas fa-chart-bar icon-btn" data-view="radar" data-i18n-title="trackerTitle" title="Tracker Radar"></i>
+            <i class="fas fa-cog icon-btn" id="settings-btn" data-i18n-title="settingsTitle" title="Settings"></i>
+        </div>
+    </div>
+
+    <!-- VIEW: HOME (SCANNER) -->
+    <div id="view-home" class="view-section active" style="position: relative;">
+
+        <!-- Re-Scan Button -->
+        <button id="manual-scan-btn" class="rescan-mini-btn" title="Re-Scan Page" data-i18n-title="rescan">
+            <i class="fas fa-sync-alt"></i>
+        </button>
+
+        <!-- Main Status Area -->
+        <div class="main-status">
+            <div class="status-icon" id="status-icon">
+                <i class="fas fa-circle-notch spinner" style="opacity:0.5"></i>
+            </div>
+            <h2 class="status-text" id="status-text" data-i18n="scanning">Scanning...</h2>
+            <span class="mode-badge" id="active-mode" data-i18n="initializing">INITIALIZING</span>
+        </div>
+
+        <!-- Error Container -->
+        <div id="error-container" class="error-container">
+            <div class="error-text" id="error-text"></div>
+            <div class="error-link" id="error-link">View Details</div>
+        </div>
+
+        <!-- Engine Selector -->
+        <div id="engine-selector" class="engine-selector" style="display:none;">
+            <label class="radio-group"><input type="radio" name="engine-choice" value="ai" checked> <span data-i18n="aiAgent">AI Agent</span></label>
+            <label class="radio-group"><input type="radio" name="engine-choice" value="local"> <span data-i18n="local">Local</span></label>
+        </div>
+
+        <div
+            style="font-size:11px; background: rgba(124, 58, 237, 0.1); border: 1px solid rgba(124, 58, 237, 0.3); border-radius: 6px; padding: 8px; margin: 15px 20px 0; color:var(--text-primary); text-align:center;">
+            <i class="fas fa-info-circle" style="color:var(--accent); margin-right:4px;"></i> <span data-i18n="tip">Tip: Wait for the page to fully load, then re-scan for accurate results.</span>
+        </div>
+
+        <!-- Checklist Grid -->
+        <div class="checklist-grid">
+            <div class="check-item" data-i18n-title="tipURL" title="URL & Protocol Safety">
+                <div class="check-label"><i class="fas fa-link"></i> <span data-i18n="url">URL</span></div>
+                <div class="check-status" id="check-url"></div>
+            </div>
+            <div class="check-item" data-i18n-title="tipLinks" title="Malicious Links">
+                <div class="check-label"><i class="fas fa-external-link-alt"></i> <span data-i18n="links">Links</span></div>
+                <div class="check-status" id="check-links"></div>
+            </div>
+            <div class="check-item" data-i18n-title="tipLegit" title="Legitimacy Verification">
+                <div class="check-label"><i class="fas fa-certificate"></i> <span data-i18n="legit">Legit</span></div>
+                <div class="check-status" id="check-legit"></div>
+            </div>
+            <div class="check-item" data-i18n-title="tipSpam" title="Spam & Density">
+                <div class="check-label"><i class="fas fa-envelope-open-text"></i> <span data-i18n="spam">Spam</span></div>
+                <div class="check-status" id="check-spam"></div>
+            </div>
+            <div class="check-item" data-i18n-title="tipMalware" title="Malware Detection">
+                <div class="check-label"><i class="fas fa-bug"></i> <span data-i18n="malware">Malware</span></div>
+                <div class="check-status" id="check-malware"></div>
+            </div>
+            <div class="check-item" data-i18n-title="tipPrivacy" title="Privacy Policy Analysis">
+                <div class="check-label"><i class="fas fa-user-shield"></i> <span data-i18n="privacy">Privacy</span></div>
+                <div class="check-status" id="check-privacy"></div>
+            </div>
+            <div class="check-item" data-i18n-title="tipDark" title="Dark Patterns">
+                <div class="check-label"><i class="fas fa-ghost"></i> <span data-i18n="darkUI">Dark UI</span></div>
+                <div class="check-status" id="check-dark"></div>
+            </div>
+            <div class="check-item" data-i18n-title="tipTone" title="Sentiment & Urgency">
+                <div class="check-label"><i class="fas fa-bullhorn"></i> <span data-i18n="tone">Tone</span></div>
+                <div class="check-status" id="check-sentiment"></div>
+            </div>
+            <div class="check-item" data-i18n-title="tipVision" title="OCR / Vision Analysis">
+                <div class="check-label"><i class="fas fa-eye"></i> <span data-i18n="vision">Vision</span></div>
+                <div class="check-status" id="check-ocr"></div>
+            </div>
+            <div class="check-item" data-i18n-title="tipDOM" title="DOM Injection Monitor">
+                <div class="check-label"><i class="fas fa-code"></i> <span data-i18n="dom">DOM</span></div>
+                <div class="check-status" id="check-dom"></div>
+            </div>
+        </div>
+
+        <!-- Advice Card -->
+        <div class="advice-card">
+            <div class="tab-header">
+                <div class="tab-btn active" data-tab="insight" data-i18n="insight">Insight</div>
+                <div class="tab-btn" data-tab="tips" data-i18n="tips">Tips</div>
+            </div>
+            <div class="tab-content">
+                <div id="tab-insight" class="tab-pane active advice-text">
+                    <div id="insight-content">Initializing...</div>
+                </div>
+                <div id="tab-tips" class="tab-pane advice-text">
+                    <div id="tips-content">Initializing...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW: CHAT (ASK AEGIS) -->
+    <div id="view-chat" class="view-section" style="display:none;">
+        <div class="chat-header" data-i18n="chatHead">Ask Aegis (AI)</div>
+        <div id="chat-history" class="chat-history">
+            <div class="chat-msg ai-msg" data-i18n="chatWelcome">Hello! I've analyzed this page. What would you like to know?</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" data-i18n-placeholder="chatPlaceholder" placeholder="e.g. Is there a refund policy?">
+            <button id="chat-send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- VIEW: VISION GUARD -->
+    <div id="view-vision" class="view-section" style="display:none; padding:20px;">
+        <div style="font-weight:700; font-size:14px; text-transform:uppercase; color:var(--accent); margin-bottom:10px;" data-i18n="visionTitle">
+            Visual Phishing Guard</div>
+        <p style="font-size:12px; color:var(--text-primary); opacity:0.8; margin-bottom:15px; line-height:1.5;" data-i18n="visionDesc">
+            Uses Vision AI to "see" the page like a human. Detects if a page visually mimics a bank or login screen but
+            is hosted on a fake domain.
+        </p>
+
+        <div id="vision-preview-container"
+            style="width:100%; height:180px; background:var(--bg-secondary); border:1px dashed var(--border-color); border-radius:8px; display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:15px;">
+            <span style="color:var(--text-primary); opacity:0.5; font-size:11px;" data-i18n="visionNone">No screenshot captured</span>
+        </div>
+
+        <button id="vision-scan-btn" class="scan-btn" style="width:100%; border-color:var(--accent);">
+            <i class="fas fa-camera"></i> <span data-i18n="visionBtn">Capture & Analyze</span>
+        </button>
+
+        <div id="vision-result"
+            style="display:none; margin-top: 15px; padding: 12px; background: var(--bg-secondary); border-radius: 8px; border: 1px solid var(--border-color);">
+            <div style="font-weight:700; font-size:11px; color:var(--accent); margin-bottom:5px;" data-i18n="visionResult">ANALYSIS RESULT</div>
+            <div id="vision-text" style="font-size:11px; line-height:1.4;" data-i18n="visionWait">Waiting for scan...</div>
+        </div>
+    </div>
+
+    <!-- VIEW: RADAR (TRACKERS & BREACH) -->
+    <div id="view-radar" class="view-section" style="display:none;">
+        <div class="section-title" style="margin:20px 20px 10px;" data-i18n="breachTitle">Data Breach Checker</div>
+        <div class="breach-card">
+            <div class="breach-input-row">
+                <input type="text" id="breach-input" data-i18n-placeholder="breachPlaceholder" placeholder="Check current domain">
+                <button id="breach-check-btn" data-i18n="breachBtn">Check</button>
+            </div>
+            <div id="breach-result" class="breach-result"></div>
+        </div>
+
+        <div class="section-title" style="margin:20px 20px 10px;" data-i18n="trackerTitle">Tracker Radar</div>
+        <div id="tracker-list" class="tracker-list">
+            <div style="text-align:center; color:var(--text-secondary); padding:20px;" data-i18n="trackerScan">Scanning network traffic...</div>
+        </div>
+    </div>
+
+
+    <div class="footer" data-i18n="footer">
+        AegisVectro Security • v3.3
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="settings-modal">
+        <div class="settings-content">
+            <div class="settings-header">
+                <div class="settings-title"><i class="fas fa-sliders-h"></i> <span data-i18n="settingsTitle">Settings</span></div>
+                <div class="close-btn" id="close-settings"><i class="fas fa-times"></i></div>
+            </div>
+
+            <!-- Appearance (Dark Mode first) -->
+            <div class="setting-row" style="margin-top: 5px;">
+                <div class="setting-label"><i class="fas fa-moon" style="color:var(--accent);"></i> <span data-i18n="darkMode">Dark Mode</span></div>
+                <label class="switch"><input type="checkbox" id="theme-toggle"><span class="slider"></span></label>
+            </div>
+
+            <!-- AI Configuration -->
+            <div class="section-title" data-i18n="engineCore">Engine Core</div>
+            <div class="setting-row">
+                <div class="setting-label"><i class="fas fa-robot" style="color:var(--accent);"></i> <span data-i18n="aiEnable">Enable AI Features</span>
+                </div>
+                <label class="switch"><input type="checkbox" id="enable-ai-toggle" checked><span
+                        class="slider"></span></label>
+            </div>
+            <div class="setting-row" id="ai-context-row">
+                <div class="setting-label">
+                    <i class="fas fa-user-secret" style="color:var(--accent);"></i> <span data-i18n="aiContext">Share Context with AI</span>
+                    <div style="font-size:9px; color:var(--text-primary); opacity:0.6; margin-top:2px;" data-i18n="aiContextDesc">Extension logs &
+                        tracker stats</div>
+                </div>
+                <label class="switch"><input type="checkbox" id="toggle-ai-context" checked><span
+                        class="slider"></span></label>
+            </div>
+
+            <div class="setting-row">
+                <div class="setting-label">
+                    <i class="fas fa-tachometer-alt" style="color:var(--accent);"></i> <span data-i18n="sensitivity">Engine Sensitivity</span>
+                    <div style="font-size:9px; color:var(--text-primary); opacity:0.6; margin-top:2px;" data-i18n="sensitivityDesc">Adjust
+                        strictness</div>
+                </div>
+                <select id="sensitivity-select"
+                    style="background:var(--bg-color); color:var(--text-primary); border:1px solid var(--border-color); border-radius:6px; padding:4px 8px; font-size:11px; outline:none; cursor:pointer;">
+                    <option value="smart" data-i18n="smart">Smart</option>
+                    <option value="literal" data-i18n="literal">Literal</option>
+                </select>
+            </div>
+
+            <!-- API Key Section -->
+            <div id="api-section" class="api-section" style="display:none; margin-bottom: 20px;">
+                <div class="setting-label" style="margin-bottom:8px;" data-i18n="apiKey">Gemini API Key</div>
+                <input type="password" id="api-key-input" class="api-input"
+                    data-i18n-placeholder="apiPlaceholder" placeholder="Paste your Google API Key here">
+                <button id="save-key-btn" class="save-btn" data-i18n="saveKey">Save API Key</button>
+                <button id="clear-keys-btn" class="scan-btn"
+                    style="width:100%; margin-top:8px; border-color:var(--danger); color:var(--danger);" data-i18n="clearKey">Clear Key &
+                    Disable AI</button>
+            </div>
+
+            <!-- Auto Scan -->
+            <div class="setting-row">
+                <div class="setting-label"><i class="fas fa-radar" style="color:var(--accent);"></i> <span data-i18n="autoScan">Auto-Scan Pages</span>
+                </div>
+                <label class="switch"><input type="checkbox" id="autoscan-toggle" checked><span
+                        class="slider"></span></label>
+            </div>
+
+            <!-- Block Annoyances -->
+            <div class="section-title" data-i18n="blockTitle">Block Annoyances</div>
+            <div class="setting-row">
+                <div class="setting-label">
+                    <i class="fas fa-ad" style="color:var(--danger);"></i> <span data-i18n="blockAds">Block Ads</span>
+                    <div style="font-size:9px; color:var(--text-primary); opacity:0.6; margin-top:2px;" data-i18n="blockAdsDesc">Network Level
+                    </div>
+                </div>
+                <label class="switch"><input type="checkbox" id="toggle-ads" checked><span
+                        class="slider"></span></label>
+            </div>
+            <div class="setting-row">
+                <div class="setting-label">
+                    <i class="fas fa-window-restore" style="color:var(--danger);"></i> <span data-i18n="blockPopups">Block Popups</span>
+                    <div style="font-size:9px; color:var(--text-primary); opacity:0.6; margin-top:2px;" data-i18n="blockPopupsDesc">Malicious
+                        Redirects</div>
+                </div>
+                <label class="switch"><input type="checkbox" id="toggle-popups" checked><span
+                        class="slider"></span></label>
+            </div>
+            <div class="setting-row">
+                <div class="setting-label">
+                    <i class="fas fa-cookie-bite" style="color:var(--accent);"></i> <span data-i18n="cookieReject">Auto-Reject Cookies</span>
+                    <div style="font-size:9px; color:var(--text-primary); opacity:0.6; margin-top:2px;" data-i18n="cookieDesc">Consent
+                        Management</div>
+                </div>
+                <label class="switch"><input type="checkbox" id="toggle-autoreject" checked><span
+                        class="slider"></span></label>
+            </div>
+
+            <!-- Appearance -->
+            <div class="section-title" data-i18n="appearance">Appearance</div>
+            <div class="setting-row">
+                <div class="setting-label">
+                    <i class="fas fa-link" style="color:var(--accent);"></i> <span data-i18n="linkSafety">Link Safety Hover</span>
+                    <div style="font-size:9px; color:var(--text-primary); opacity:0.6; margin-top:2px;" data-i18n="linkDesc">Check links on
+                        hover</div>
+                </div>
+                <label class="switch"><input type="checkbox" id="toggle-link-safety" checked><span
+                        class="slider"></span></label>
+            </div>
+
+            <!-- Language Selector -->
+            <div class="setting-row">
+                <div class="setting-label">
+                    <i class="fas fa-globe" style="color:var(--accent);"></i> <span data-i18n="langLabel">Language</span>
+                    <div style="font-size:9px; color:var(--text-primary); opacity:0.6; margin-top:2px;" data-i18n="langDesc">Extension language</div>
+                </div>
+                <select id="language-select"
+                    style="background:var(--bg-color); color:var(--text-primary); border:1px solid var(--border-color); border-radius:6px; padding:4px 8px; font-size:11px; outline:none; cursor:pointer;">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="de">Deutsch</option>
+                    <option value="ja">日本語</option>
+                    <option value="fr">Français</option>
+                    <option value="ru">Русский</option>
+                    <option value="pt">Português</option>
+                    <option value="it">Italiano</option>
+                    <option value="nl">Nederlands</option>
+                    <option value="pl">Polski</option>
+                </select>
+            </div>
+
+            <!-- Support & Legal -->
+            <div class="section-title" data-i18n="support">Support & Legal</div>
+            <a href="https://aegisvectro.com/docs" target="_blank" class="link-btn"><span><i class="fas fa-book"
+                        style="margin-right:8px;"></i> <span data-i18n="docs">Documentation</span></span><i class="fas fa-chevron-right"
+                    style="font-size:10px;"></i></a>
+            <a href="https://aegisvectro.com/privacy" target="_blank" class="link-btn"><span><i
+                        class="fas fa-shield-alt" style="margin-right:8px;"></i> <span data-i18n="privacyPolicy">Privacy Policy</span></span><i
+                    class="fas fa-chevron-right" style="font-size:10px;"></i></a>
+        </div>
+    </div>
+
+    <script src="i18n.js"></script>
+    <script src="popup.js"></script>
+</body>
+
+</html>
